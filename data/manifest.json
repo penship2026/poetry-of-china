@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "ref": "b8594f81a89752241442f2ce267d6f66f96704ee",
+  "generatedAt": "2026-11-21T03:10:21.144Z",
+  "counts": {
+    "total": 90886,
+    "curated": 2055,
+    "full": 88831,
+    "collections": 9,
+    "shards": 889
+  }
+}
