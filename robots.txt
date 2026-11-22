@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /me/
 
-Sitemap: https://poetry.ximyan.com/sitemap.xml
+Sitemap: https://poetry.example.com/sitemap.xml

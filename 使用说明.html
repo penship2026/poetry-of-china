@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="中华古诗词学习站使用说明：读诗、检索、收藏、背诵、页面设置、手机与微信使用和常见问题。">
+  <meta name="theme-color" content="#f6f1e4">
+  <title>使用说明 · 中华古诗词</title>
+  <style>
+    :root {
+      --paper: #f6f1e4;
+      --paper-2: #efe7d6;
+      --paper-3: #fffdf6;
+      --ink: #22201d;
+      --ink-2: #575047;
+      --ink-3: #6f675c;
+      --line: #ddd3bf;
+      --line-strong: #c9bd9f;
+      --red: #9c3b2e;
+      --red-2: #b85c4d;
+      --green: #5e6b58;
+      --serif: "Songti SC", "STSong", "Noto Serif CJK SC", "Noto Serif SC", serif;
+      --sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", "Menlo", "Consolas", monospace;
+      --w: 1120px;
+      --radius: 4px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--red); }
+    button { font: inherit; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+    .skip-link {
+      position: absolute; left: 16px; top: -60px; z-index: 60;
+      background: var(--ink); color: var(--paper-3); padding: 8px 14px;
+      font-family: var(--sans); font-size: 12px; transition: top .15s ease;
+    }
+    .skip-link:focus { top: 12px; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(246, 241, 228, .96);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      width: min(var(--w), calc(100% - 48px));
+      margin: 0 auto; min-height: 66px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .seal {
+      width: 40px; height: 40px; display: grid; place-items: center;
+      background: var(--red); color: #fff8ef; font-size: 22px; line-height: 1;
+      box-shadow: inset 0 0 0 1px rgba(255, 248, 239, .25);
+    }
+    .brand-text { display: grid; gap: 1px; }
+    .brand-name { font-size: 19px; letter-spacing: .12em; line-height: 1.2; }
+    .brand-sub { font-family: var(--sans); font-size: 9px; letter-spacing: .18em; color: var(--ink-3); }
+    .topnav {
+      margin-left: auto; display: flex; align-items: center; gap: 22px;
+      font-family: var(--sans); font-size: 13px; color: var(--ink-2);
+    }
+    .topnav a.current { color: var(--red); }
+    .topnav .back {
+      border: 1px solid var(--line-strong); padding: 6px 12px; border-radius: 999px;
+      color: var(--ink-2);
+    }
+    .topnav .back:hover { border-color: var(--red); color: var(--red); }
+
+    .hero {
+      width: min(var(--w), calc(100% - 48px));
+      margin: 0 auto;
+      padding: 72px 0 34px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--sans); font-size: 11px; letter-spacing: .22em; color: var(--red);
+    }
+    .kicker::before { content: ""; width: 24px; height: 2px; background: var(--red); }
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(34px, 4.6vw, 54px);
+      font-weight: 400; line-height: 1.25; letter-spacing: .12em;
+    }
+    .lede {
+      max-width: 760px; margin: 0;
+      font-size: 19px; line-height: 1.95; color: var(--ink-2); letter-spacing: .04em;
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px;
+      font-family: var(--sans); font-size: 11px; color: var(--ink-3);
+    }
+    .meta span {
+      border: 1px solid var(--line); background: var(--paper-3);
+      padding: 4px 10px; border-radius: 999px;
+    }
+
+    .layout {
+      width: min(var(--w), calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 230px;
+      gap: 64px;
+      padding: 48px 0 80px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky; top: 94px;
+      border-left: 1px solid var(--line);
+      padding-left: 22px;
+    }
+    .toc-title {
+      margin: 0 0 12px; font-family: var(--sans); font-size: 10px;
+      letter-spacing: .2em; color: var(--ink-3);
+    }
+    .toc ol {
+      margin: 0; padding: 0; list-style: none;
+      display: grid; gap: 3px;
+    }
+    .toc li a {
+      display: flex; gap: 10px; align-items: baseline;
+      padding: 5px 0; font-family: var(--sans); font-size: 12px; line-height: 1.6;
+      color: var(--ink-2);
+    }
+    .toc li a .n {
+      min-width: 18px; font-size: 10px; color: var(--ink-3); font-variant-numeric: tabular-nums;
+    }
+    .toc li a:hover { color: var(--red); }
+
+    .doc { min-width: 0; }
+    .doc section {
+      padding: 0 0 46px;
+      scroll-margin-top: 92px;
+    }
+    .doc section:not(:first-child) { border-top: 1px solid var(--line); padding-top: 42px; }
+    h2 {
+      margin: 0 0 22px;
+      display: flex; gap: 12px; align-items: baseline;
+      font-size: 27px; font-weight: 400; line-height: 1.4; letter-spacing: .08em;
+    }
+    h2 .num {
+      font-family: var(--sans); font-size: 11px; letter-spacing: .08em; color: var(--red);
+      border: 1px solid rgba(156, 59, 46, .35); padding: 1px 6px; border-radius: 2px;
+    }
+    p { margin: 0 0 14px; color: var(--ink-2); }
+    p strong, li strong { color: var(--ink); font-weight: 600; }
+    .doc p { font-size: 16.5px; line-height: 2; }
+
+    ul, ol { margin: 0 0 18px; padding-left: 1.5em; }
+    li { margin: 0 0 8px; color: var(--ink-2); }
+    li::marker { color: var(--red); }
+    .steps { counter-reset: step; list-style: none; padding-left: 0; }
+    .steps li {
+      counter-increment: step; position: relative;
+      padding: 2px 0 2px 42px; margin-bottom: 10px;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 4px;
+      width: 25px; height: 25px; display: grid; place-items: center;
+      border: 1px solid var(--line-strong); border-radius: 50%;
+      font-family: var(--sans); font-size: 10px; color: var(--red);
+    }
+
+    .note {
+      margin: 18px 0 20px;
+      padding: 13px 16px 13px 18px;
+      background: var(--paper-3);
+      border-left: 3px solid var(--red);
+      color: var(--ink-2);
+      font-size: 14.5px; line-height: 1.9;
+    }
+    .note + .note { margin-top: -8px; }
+    .note b { color: var(--ink); font-weight: 600; }
+
+    .tool-list {
+      display: grid; grid-template-columns: 104px minmax(0, 1fr);
+      border-top: 1px solid var(--line);
+      margin: 20px 0 18px;
+    }
+    .tool-list dt {
+      padding: 11px 0; border-bottom: 1px solid var(--line);
+      font-size: 15px; color: var(--ink); letter-spacing: .06em;
+    }
+    .tool-list dd {
+      margin: 0; padding: 11px 0 11px 10px; border-bottom: 1px solid var(--line);
+      font-size: 14.5px; line-height: 1.85; color: var(--ink-2);
+    }
+
+    .table-wrap {
+      margin: 20px 0 22px;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      background: var(--paper-3);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 460px; }
+    caption {
+      caption-side: top; text-align: left; padding: 11px 14px;
+      font-family: var(--sans); font-size: 11px; color: var(--ink-3);
+      border-bottom: 1px solid var(--line);
+    }
+    th, td {
+      padding: 10px 14px; text-align: left; vertical-align: top;
+      border-bottom: 1px solid var(--line); font-size: 14px;
+    }
+    th {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: .1em; color: var(--ink-3); background: var(--paper-2);
+    }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { color: var(--ink); white-space: nowrap; }
+
+    .faq { display: grid; gap: 0; margin-top: 18px; border-top: 1px solid var(--line); }
+    details { border-bottom: 1px solid var(--line); }
+    summary {
+      cursor: pointer; list-style: none;
+      padding: 13px 34px 13px 0; position: relative;
+      font-size: 16px; color: var(--ink); letter-spacing: .02em;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+"; position: absolute; right: 6px; top: 10px;
+      font-family: var(--sans); font-size: 18px; color: var(--ink-3);
+    }
+    details[open] summary::after { content: "−"; color: var(--red); }
+    details p { padding: 0 34px 10px 0; margin: 0; font-size: 14.5px; line-height: 1.9; }
+    details p code { font-size: 12.5px; }
+
+    code {
+      font-family: var(--mono); font-size: 13px;
+      background: var(--paper-2); color: var(--ink); padding: 1px 5px; border-radius: 2px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0 44px;
+      font-family: var(--sans); font-size: 11px; color: var(--ink-3);
+    }
+    .footer-inner {
+      width: min(var(--w), calc(100% - 48px)); margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    }
+    .footer-links { margin-left: auto; display: flex; gap: 16px; }
+    .footer-links a { border-bottom: 1px solid transparent; padding-bottom: 1px; }
+    .footer-links a:hover { border-color: var(--red); }
+
+    .to-top {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 6px; font-family: var(--sans); font-size: 11px; color: var(--ink-3);
+    }
+    .to-top:hover { color: var(--red); }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; gap: 26px; padding-top: 30px; }
+      .toc {
+        position: static; order: -1; border-left: 0; border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line); padding: 16px 0;
+      }
+      .toc ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 18px; }
+      .hero { padding-top: 50px; }
+      .topnav .back { display: none; }
+    }
+    @media (max-width: 620px) {
+      body { font-size: 15px; }
+      .topbar-inner, .hero, .layout, .footer-inner { width: calc(100% - 34px); }
+      .topnav { gap: 12px; font-size: 12px; }
+      .topnav a:not(.current) { display: none; }
+      .hero { padding: 40px 0 26px; }
+      h2 { font-size: 23px; }
+      .doc p { font-size: 15.5px; line-height: 1.95; }
+      .tool-list { grid-template-columns: 1fr; }
+      .tool-list dt { border-bottom: 0; padding-bottom: 2px; }
+      .tool-list dd { padding-top: 0; }
+      .toc ol { grid-template-columns: 1fr; }
+      .footer-inner { display: grid; gap: 10px; }
+      .footer-links { margin-left: 0; flex-wrap: wrap; }
+    }
+    @media print {
+      .topbar, .toc, .to-top, footer { display: none !important; }
+      .layout { display: block; width: 100%; padding: 0; }
+      .hero { width: 100%; padding-top: 0; }
+      body { background: #fff; font-size: 11pt; }
+      .doc section { break-inside: avoid; }
+      a { text-decoration: none; color: #000; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="中华古诗词首页">
+        <span class="seal" aria-hidden="true">詩</span>
+        <span class="brand-text">
+          <span class="brand-name">中华古诗词</span>
+          <span class="brand-sub">POETRY OF CHINA</span>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="站点导航">
+        <a href="/">首页</a>
+        <a href="/browse/">浏览</a>
+        <a href="/search/">检索</a>
+        <a class="current" href="/使用说明.html" aria-current="page">使用说明</a>
+        <a class="back" href="/">返回首页</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="kicker">GUIDE · 使用说明</div>
+    <h1>读一首诗，<br>从这里开始。</h1>
+    <p class="lede">从首页的今日一首，到检索、浏览、收藏与背诵。这份说明覆盖读诗页的每个按钮、页面设置、手机与微信使用，以及常见问题。</p>
+    <div class="meta">
+      <span>9 章</span>
+      <span>约 6 分钟</span>
+      <span>更新于 2026-11-21</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main class="doc" id="main">
+      <section id="what">
+        <h2><span class="num">01</span>这是什么</h2>
+        <p>一个纯静态的古诗词学习网站：打开网页就能读诗、查诗、听朗读、练背诵。没有账号、没有后端、不上传任何个人数据；收藏和进度只存在当前浏览器里。</p>
+        <p><strong>收录规模：</strong></p>
+        <ul>
+          <li>全量唐诗、宋词、元曲，目录共 <strong>90,886</strong> 条</li>
+          <li>精读 <strong>2,055</strong> 首（唐诗三百首、宋词三百首、千家诗、诗经、楚辞、纳兰词、曹操、花间集、南唐）</li>
+          <li>每日一首 <strong>366</strong> 首、名句 <strong>400</strong> 条</li>
+        </ul>
+      </section>
+
+      <section id="start">
+        <h2><span class="num">02</span>快速上手</h2>
+        <ol class="steps">
+          <li>打开首页，看到“今日一首”，点“开始诵读”进入详情。</li>
+          <li>想找诗，用顶部“检索”，输入题目、诗人或名句，如“静夜思”“李白”“明月”。</li>
+          <li>想按朝代读，进“浏览”，筛唐 / 宋 / 元与体裁。</li>
+          <li>想系统读选本，进“诗集”，从九个大类里挑一本。</li>
+          <li>读过的和收藏的，都在“我的”。</li>
+        </ol>
+      </section>
+
+      <section id="read">
+        <h2><span class="num">03</span>读诗页怎么用</h2>
+        <p>详情页工具栏从左到右：</p>
+        <dl class="tool-list">
+          <dt>拼音</dt>
+          <dd>给每个汉字加注音，再点一次关闭。长诗建议配合更大字号。</dd>
+          <dt>简繁</dt>
+          <dd>按原文的简体/繁体方向双向切换；标题、作者、正文一起切换。转换按需加载，第一次点会稍慢。</dd>
+          <dt>朗读</dt>
+          <dd>调用系统语音朗读全诗，再点停止。可在「页面设置」里选择朗读音色；手机、电脑的语音引擎不同，可选音色和效果会有差异。</dd>
+          <dt>竖排</dt>
+          <dd>桌面端从右向左竖排阅读；手机端不提供，点击会提示。</dd>
+          <dt>收藏</dt>
+          <dd>加入“我的”，再点取消。</dd>
+          <dt>开始背诵</dt>
+          <dd>正文变成遮罩，点一句 reveal 一句；下方输入框可以默写，提交后逐字比对，标出错误位置。</dd>
+        </dl>
+        <div class="note"><b>正文字号已移到「页面设置」</b>，正文工具栏不再显示字号按钮，避免阅读时误触。</div>
+        <div class="note"><b>平仄：</b>部分篇目暂缺校订数据，按钮会置灰并提示“本篇暂无平仄数据”，不影响其他功能。</div>
+        <p>页面向下还有注释、译文、赏析。没有校订内容的篇目会明确显示“本篇暂无校订注释”，可以先读原文和注释。</p>
+      </section>
+
+      <section id="search">
+        <h2><span class="num">04</span>检索</h2>
+        <ul>
+          <li>默认检索：诗题、诗人、首句、名句，一次加载全量目录后即时筛选。</li>
+          <li><strong>简繁互通：</strong>输入简体“静夜思”也能命中繁体《靜夜思》，反过来同样可以。</li>
+          <li>首次检索需要下载约 3MB 压缩数据，4G 下约 2–4 秒；之后同一浏览器内很快。</li>
+          <li>目录里没有的句子，点“在 9 万首正文中深度检索”：会扫描 889 个正文分片，显示进度，最多返回 80 首，可随时取消。</li>
+        </ul>
+      </section>
+
+      <section id="me">
+        <h2><span class="num">05</span>我的：收藏、背诵与打卡</h2>
+        <ul>
+          <li>收藏最多 500 首，按收藏时间倒序。</li>
+          <li>“已背诵”记录来自默写提交：提交一次即记一篇，并记为当天打卡。</li>
+          <li>连续天数按打卡日期计算，断一天重新计数。</li>
+          <li>支持“导出 JSON”备份，“导入 JSON”恢复。换手机、换浏览器时用它迁移；清理浏览器数据会丢失。</li>
+        </ul>
+      </section>
+
+      <section id="settings">
+        <h2><span class="num">06</span>页面设置与风格</h2>
+        <p>右上角圆形“Aa”按钮打开“页面设置”：</p>
+        <div class="table-wrap">
+          <table>
+            <caption>四套主题的定位与适用场景</caption>
+            <thead>
+              <tr><th scope="col">风格</th><th scope="col">气质</th><th scope="col">适合</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>宣纸</td><td>米色纸感，默认</td><td>白天、长时间阅读</td></tr>
+              <tr><td>青瓷</td><td>冷青釉色，清透</td><td>光线较强的环境</td></tr>
+              <tr><td>竹简</td><td>暖黄木色，古旧</td><td>偏好纸书质感</td></tr>
+              <tr><td>墨夜</td><td>深色低亮</td><td>夜间、暗光</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>正文字体：</strong>宋体（默认）、黑体、楷体、仿宋、隶书、圆体六种；<strong>正文字号：</strong>14–21 八档，正文、注释、译文、赏析同步缩放。</li>
+          <li><strong>朗读音色：</strong>只列出本机可直接发声的中文音色，可选“自动（系统默认）”或指定音色；在线音色已隐藏，避免朗读长时间无响应。</li>
+          <li>风格、字体、字号、音色保存在浏览器 localStorage，刷新、关网页再打开都保持。</li>
+          <li><strong>换浏览器、无痕窗口、清除站点数据后会恢复默认“宣纸 · 宋体 · 16 · 自动音色”</strong>，这是设计行为，不是丢失。</li>
+          <li>“恢复默认”会重置风格、字体、字号与朗读音色，不影响收藏与背诵记录。</li>
+          <li>简繁同形的篇目不显示切换按钮；有差异的篇目可双向切换。</li>
+        </ul>
+      </section>
+
+      <section id="mobile">
+        <h2><span class="num">07</span>手机与微信</h2>
+        <ul>
+          <li>手机端自动切换为单栏布局，导航收进左上角菜单，详情页底部有“背诵 / 朗读 / 收藏”吸底条。</li>
+          <li>支持刘海屏安全区，横竖屏切换不溢出。</li>
+          <li>微信内直接打开链接即可阅读；分享卡片使用页面自带的标题与摘要。</li>
+          <li>微信内如果系统不支持语音朗读，点“朗读”会提示“当前环境不支持系统朗读”，可改用手机自带朗读或换浏览器。</li>
+          <li>微信内不需要登录，也不读取 Cookie；收藏 / 进度仍只在本机浏览器保存。</li>
+        </ul>
+      </section>
+
+      <section id="faq">
+        <h2><span class="num">08</span>常见问题</h2>
+        <div class="faq">
+          <details>
+            <summary>打开是空白页？</summary>
+            <p>不要直接双击本地 <code>index.html</code> 用 <code>file://</code> 打开，这样会出现空白；请通过 <code>http://</code> 或 <code>https://</code> 的网址访问。</p>
+          </details>
+          <details>
+            <summary>拼音第一次点没反应？</summary>
+            <p>拼音词典约 300KB，按需加载，弱网下等 1–2 秒；仍无反应请刷新重试。</p>
+          </details>
+          <details>
+            <summary>切换简繁后注释没变？</summary>
+            <p>简繁切换只作用于标题、作者、正文；注释、译文保持数据源原文，避免二次转换出错。</p>
+          </details>
+          <details>
+            <summary>“唐诗三百首”为什么显示 366 首？</summary>
+            <p>上游数据源实际收录 366 条（含补录），页面如实展示，不裁切。</p>
+          </details>
+          <details>
+            <summary>收藏 / 进度会同步到别的设备吗？</summary>
+            <p>不会。本站没有账号和后端；需要迁移请用“我的”里的导出 / 导入 JSON。</p>
+          </details>
+          <details>
+            <summary>深度检索很慢？</summary>
+            <p>它要顺序扫 889 个分片，正常 3–10 秒；可随时点“取消”。日常找诗建议先用普通检索。</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="data">
+        <h2><span class="num">09</span>数据与版权</h2>
+        <p>诗文数据来自开源项目 <a href="https://github.com/chinese-poetry/chinese-poetry" target="_blank" rel="noopener noreferrer">chinese-poetry</a>，版本锁定在 <code>b8594f81a89752241442f2ce267d6f66f96704ee</code>。注释、译文、赏析如无特别说明来自上游数据或站内校订内容。站点的代码与设计仅用于学习与交流，转载数据请遵循上游仓库的许可与说明。</p>
+        <a class="to-top" href="#top">↑ 回到顶部</a>
+      </section>
+    </main>
+
+    <aside class="toc" aria-label="本页目录">
+      <div class="toc-title">CONTENTS · 目录</div>
+      <ol>
+        <li><a href="#what"><span class="n">01</span>这是什么</a></li>
+        <li><a href="#start"><span class="n">02</span>快速上手</a></li>
+        <li><a href="#read"><span class="n">03</span>读诗页怎么用</a></li>
+        <li><a href="#search"><span class="n">04</span>检索</a></li>
+        <li><a href="#me"><span class="n">05</span>我的：收藏与背诵</a></li>
+        <li><a href="#settings"><span class="n">06</span>页面设置与风格</a></li>
+        <li><a href="#mobile"><span class="n">07</span>手机与微信</a></li>
+        <li><a href="#faq"><span class="n">08</span>常见问题</a></li>
+        <li><a href="#data"><span class="n">09</span>数据与版权</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span>中华古诗词 · 使用说明 · 2026</span>
+      <span class="footer-links">
+        <a href="/">首页</a>
+        <a href="/about/">关于</a>
+        <a href="/about/#report">数据纠错</a>
+        <a href="#top">回到顶部</a>
+      </span>
+    </div>
+  </footer>
+
+</body>
+</html>
